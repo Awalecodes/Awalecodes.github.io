@@ -1,26 +1,19 @@
 import './App.css';
+import React, { useState, useEffect } from 'react';
 import { Grid } from '@mui/material';
 import { Product } from './Product';
+import axios from 'axios';
 
 export const App = () => {
-  const products = [
-    {
-      id: 1,
-      name: 'Shave',
-      price: 10
-    },
-    {
-      id: 2,
-      name: 'Haircut',
-      price: 20
-    },
-    {
-      id: 3,
-      name: 'Shampoo',
-      price: 5
-    }
-  ]
-  
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/products')
+      .then((response) => {
+        setProducts(response.data);
+      })
+  }, []);
+
   return (
     <>
       <h1>Deer Barbers</h1>
@@ -29,12 +22,15 @@ export const App = () => {
       </p>
       <hr />
       <h2>Services</h2>
-      <Grid container spacing={2}>
-        {products.map((product) => (
-          <Product key={product.id} product={product} />
-        ))}
-        
-      </Grid>
+      {products === undefined ? (
+        <p>Loading...</p>
+      ) : (
+        <Grid container spacing={2}>
+          {products.map((product) => (
+            <Product key={product.id} product={product} />
+          ))}
+        </Grid>
+      )}
     </>
   )
 }

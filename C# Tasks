@@ -1,0 +1,58 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+
+      
+       ProcessStudentGrade();//this will help you with attemping Username & password
+             
+       
+       Console.ReadLine();
+
+        static void ProcessStudentGrade()
+        {
+            string[] students = { "Ali", "Bashir", "Camilla" };
+
+        foreach (string student in students)
+        {
+            Console.WriteLine($"What mark did {student} get in their English Exam?");
+            string input = Console.ReadLine();
+            int mark = Convert.ToInt32(input);
+
+            string grade = CalculatedGrade(mark);
+
+            Console.WriteLine($"{student} got a Grade {grade} in their English exam.");
+  
+        }
+        Console.ReadLine();
+    }
+
+
+    static string CalculatedGrade(int mark)
+        {
+            string grade = "";
+            switch (mark)
+            {
+                case >= 90:
+                    grade = "A*";
+                    break;
+                case >= 70:
+                    grade = "A";
+                    break;
+                case >= 60:
+                    grade = "B";
+                    break;
+                case >= 50:
+                    grade = "C";
+                    break;
+                default:
+                    grade = "failed";
+                    break;
+            }
+            return grade;
+        }
+    }
+
+}
